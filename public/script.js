@@ -73,8 +73,9 @@ headers:{
 
 body:JSON.stringify({
 mode:currentMode,
-prompt:input
+input:input
 })
+
 
 });
 
