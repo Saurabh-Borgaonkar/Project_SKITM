@@ -91,7 +91,7 @@ backdrop-filter:blur(12px);
 </head>
 
 
-<body class="text-white h-screen flex overflow-hidden">
+<body class="text-white min-h-screen flex flex-col md:flex-row overflow-x-hidden">
 
 
 <!-- SIDEBAR -->
@@ -105,18 +105,24 @@ DevPilot AI
 </h1>
 
 <nav class="space-y-4">
+<div class="md:hidden flex gap-2 mb-4">
 
-<button onclick="setMode(event,'review')" class="navBtn active">
-Code Reviewer
+<button onclick="setMode(event,'review')"
+class="navBtn active flex-1 text-center">
+Reviewer
 </button>
 
-<button onclick="setMode(event,'bug')" class="navBtn">
-Bug Fix Assistant
+<button onclick="setMode(event,'bug')"
+class="navBtn flex-1 text-center">
+Bug Fix
 </button>
 
-<button onclick="setMode(event,'crud')" class="navBtn">
-CRUD Generator
+<button onclick="setMode(event,'crud')"
+class="navBtn flex-1 text-center">
+CRUD
 </button>
+
+</div>
 
 </nav>
 
@@ -195,7 +201,7 @@ Copy Output
 
 <div
 id="outputBox"
-class="glass mt-6 rounded-2xl p-6 flex-1 overflow-y-auto hide-scrollbar transition">
+class="glass mt-6 rounded-2xl p-4 md:p-6 flex-1 overflow-y-auto hide-scrollbar transition text-sm md:text-base max-h-[40vh] md:max-h-none">
 
 <span class="text-gray-500">
 AI response will appear here...
@@ -206,7 +212,8 @@ AI response will appear here...
 
 <!-- FOOTER -->
 
-<footer class="mt-4 text-center text-gray-400 text-sm py-3 rounded-xl">
+
+   <footer class="mt-6 text-center text-gray-400 text-xs md:text-sm py-4 rounded-xl">
 
 Built with ❤️ by DevPilot AI • AI-Powered Developer Productivity Tool
 
