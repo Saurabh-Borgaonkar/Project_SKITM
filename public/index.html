@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
@@ -11,64 +11,110 @@
 
 <style>
 
-/* gradient floating background */
-.bg-glow{
-position:absolute;
-filter:blur(120px);
-opacity:.25;
+/* BACKGROUND IMAGE */
+
+body{
+background:
+linear-gradient(rgba(11,15,25,.92),rgba(11,15,25,.96)),
+url("9139066.png");
+background-size:cover;
+background-position:center;
+background-attachment:fixed;
+}
+
+/* floating gradient glow */
+
+body::before{
+content:"";
+position:fixed;
+width:600px;
+height:600px;
+background:linear-gradient(45deg,#00eaff,#7c3aed);
+filter:blur(160px);
+opacity:.18;
+top:-200px;
+left:-200px;
 z-index:-1;
-pointer-events:none;
 }
-/* smooth button glow */
-.glow-btn{
-transition:all .3s ease;
+
+/* GLASS UI */
+
+.glass{
+background:rgba(255,255,255,.05);
+backdrop-filter:blur(14px);
+border:1px solid rgba(255,255,255,.08);
 }
+
+/* SIDEBAR BUTTON */
+
+.navBtn{
+display:block;
+width:100%;
+padding:12px;
+border-radius:12px;
+transition:.25s;
+}
+
+.navBtn:hover{
+background:rgba(255,255,255,.08);
+}
+
+.navBtn.active{
+background:linear-gradient(90deg,#00eaff22,#7c3aed22);
+border-left:3px solid #00eaff;
+}
+
+/* BUTTON GLOW */
 
 .glow-btn:hover{
-box-shadow:0 0 18px #00eaff;
-transform:translateY(-1px);
-}
-/* Hide scrollbar but allow scrolling */
-.hide-scrollbar::-webkit-scrollbar {
-display: none;
+box-shadow:0 0 20px #00eaff;
+transform:translateY(-2px);
 }
 
-.hide-scrollbar {
--ms-overflow-style: none;
-scrollbar-width: none;
+/* HIDE SCROLLBAR */
+
+.hide-scrollbar::-webkit-scrollbar{
+display:none;
 }
+
+.hide-scrollbar{
+scrollbar-width:none;
+}
+
+footer{
+background:rgba(255,255,255,.03);
+backdrop-filter:blur(12px);
+}
+
 </style>
 
 </head>
 
-   <body class="bg-[#0B0F19] text-white h-screen flex overflow-hidden relative">
 
-<!-- background glow -->
-<div class="bg-glow w-96 h-96 bg-cyan-500 top-10 left-10"></div>
-<div class="bg-glow w-96 h-96 bg-purple-500 bottom-10 right-10"></div>
+<body class="text-white h-screen flex overflow-hidden">
 
 
 <!-- SIDEBAR -->
 
-<div class="w-64 bg-white/5 backdrop-blur-xl border-r border-white/10 p-6 flex flex-col justify-between">
+<div class="hidden md:flex w-64 glass p-6 flex-col justify-between">
 
 <div>
 
-<h1 class="text-2xl font-bold text-cyan-400 mb-8">
+<h1 class="text-2xl font-bold text-cyan-400 mb-10">
 DevPilot AI
 </h1>
 
 <nav class="space-y-4">
 
-<button onclick="setMode('review')" class="navBtn">
+<button onclick="setMode(event,'review')" class="navBtn active">
 Code Reviewer
 </button>
 
-<button onclick="setMode('bug')" class="navBtn">
+<button onclick="setMode(event,'bug')" class="navBtn">
 Bug Fix Assistant
 </button>
 
-<button onclick="setMode('crud')" class="navBtn">
+<button onclick="setMode(event,'crud')" class="navBtn">
 CRUD Generator
 </button>
 
@@ -85,17 +131,19 @@ Hackathon Build v1.0
 
 <!-- MAIN PANEL -->
 
-<div class="flex-1 p-10">
+<div class="flex-1 flex flex-col h-screen p-4 md:p-10">
 
-<!-- header -->
 
-<div class="flex justify-between items-center mb-8">
+<!-- HEADER -->
 
-<h2 id="modeTitle" class="text-3xl font-semibold">
+<div class="flex justify-between items-center mb-6">
+
+<h2 id="modeTitle"
+class="text-3xl font-semibold tracking-wide">
 Code Reviewer
 </h2>
 
-<div class="flex items-center gap-2 text-green-400">
+<div class="flex items-center gap-2 text-green-400 text-sm">
 
 <span class="w-2 h-2 rounded-full bg-green-400 animate-pulse"></span>
 AI Connected
@@ -105,41 +153,39 @@ AI Connected
 </div>
 
 
-<!-- INPUT PANEL -->
+<!-- INPUT CARD -->
+
+<div class="glass rounded-2xl p-5 transition">
 
 <textarea
 id="inputBox"
-placeholder="Paste your code / error / schema here..."
-class="w-full h-52 bg-[#121826] border border-white/10 rounded-2xl p-5 outline-none focus:ring-2 focus:ring-cyan-400 resize-none transition"
+placeholder="Paste your code here to review improvements..."
+class="w-full h-40 md:h-52 bg-transparent outline-none resize-none text-gray-200"
 ></textarea>
+
+</div>
 
 
 <!-- BUTTONS -->
 
-<div class="flex gap-4 mt-4">
+<div class="flex flex-col md:flex-row gap-3 mt-4">
 
 <button
 onclick="sendPrompt()"
-class="glow-btn px-6 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600"
->
+class="glow-btn px-6 py-2 rounded-xl bg-gradient-to-r from-cyan-500 via-blue-500 to-purple-600">
 Analyze with AI
 </button>
 
 <button
-id="clearBtn"
 onclick="clearInput()"
-class="px-6 py-2 rounded-xl border border-white/20 hover:bg-white/10 transition"
->
-🧹 Clear
+class="px-6 py-2 rounded-xl border border-white/20 hover:bg-white/10">
+Clear
 </button>
 
-
 <button
-id="copyBtn"
 onclick="copyOutput()"
-class="px-6 py-2 rounded-xl border border-white/20 hover:bg-white/10 transition"
->
-📋 Copy Output
+class="px-6 py-2 rounded-xl border border-white/20 hover:bg-white/10">
+Copy Output
 </button>
 
 </div>
@@ -149,10 +195,23 @@ class="px-6 py-2 rounded-xl border border-white/20 hover:bg-white/10 transition"
 
 <div
 id="outputBox"
-class="mt-8 bg-[#121826] border border-white/10 rounded-2xl p-6 min-h-[220px] max-h-[60vh] overflow-y-auto leading-relaxed text-gray-200 shadow-lg transition-all duration-300"
->
-<span class="text-gray-500">AI response will appear here...</span>
+class="glass mt-6 rounded-2xl p-6 flex-1 overflow-y-auto hide-scrollbar transition">
+
+<span class="text-gray-500">
+AI response will appear here...
+</span>
+
 </div>
+
+
+<!-- FOOTER -->
+
+<footer class="mt-4 text-center text-gray-400 text-sm py-3 rounded-xl">
+
+Built with ❤️ by DevPilot AI • AI-Powered Developer Productivity Tool
+
+</footer>
+
 
 </div>
 
