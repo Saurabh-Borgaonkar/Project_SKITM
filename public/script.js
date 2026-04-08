@@ -5,7 +5,6 @@ function setMode(event, mode){
 
 currentMode = mode;
 
-
 /* TITLE CHANGE */
 
 const titles = {
@@ -30,14 +29,14 @@ document.getElementById("inputBox").placeholder = placeholders[mode];
 
 /* CLEAR INPUT + OUTPUT */
 
-document.getElementById("inputBox").value = "";
+document.getElementById("inputBox").value="";
 
 document.getElementById("outputBox").innerHTML =
 "<span class='text-gray-500'>AI response will appear here...</span>";
 
 
 
-/* SIDEBAR ACTIVE EFFECT */
+/* ACTIVE BUTTON EFFECT (desktop + mobile) */
 
 document.querySelectorAll(".navBtn").forEach(btn=>{
 btn.classList.remove("active");
@@ -82,7 +81,7 @@ input: input
 
 const data = await response.json();
 
-output.innerText = data.reply;
+output.innerHTML = formatResponse(data.reply);
 
 }
 
@@ -107,5 +106,14 @@ return;
 }
 
 navigator.clipboard.writeText(text);
+
+}
+
+function formatResponse(text){
+
+return text
+.replace(/\*\*(.*?)\*\*/g,"<strong>$1</strong>")
+.replace(/`(.*?)`/g,"<code class='bg-black/40 px-1 rounded'>$1</code>")
+.replace(/\n/g,"<br>");
 
 }
