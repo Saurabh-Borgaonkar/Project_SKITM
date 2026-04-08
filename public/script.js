@@ -53,7 +53,7 @@ event.target.classList.add("active");
 async function sendPrompt(){
 
 const input = document.getElementById("inputBox").value;
-
+console.log("Input value:", input);
 if(!input){
 return;
 }
@@ -71,9 +71,9 @@ headers:{
 "Content-Type":"application/json"
 },
 
-body:JSON.stringify({
-mode:currentMode,
-input:input
+body: JSON.stringify({
+mode: currentMode,
+input: input
 })
 
 
