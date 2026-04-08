@@ -20,7 +20,7 @@ app.get("/", (req, res) => {
 });
 
 // Server config
-const PORT = precess.env.PORT ||  3000;
+const PORT = process.env.PORT || 3000;
 
 
 // Start server
