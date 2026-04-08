@@ -20,10 +20,10 @@ app.get("/", (req, res) => {
 });
 
 // Server config
-const PORT = 3000;
-const HOST = "127.0.0.1";
+const PORT = precess.env.PORT ||  3000;
+
 
 // Start server
-app.listen(PORT, HOST, () => {
-  console.log(`Server running at http://${HOST}:${PORT}`);
+app.listen(PORT, () => {
+  console.log(`Server running at ${PORT}`);
 });
